@@ -1,0 +1,74 @@
+package com.example.humancomputerinteraction
+
+import androidx.compose.animation.Crossfade
+import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.delay
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.TextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+
+@Composable
+fun App(
+    navController: NavController
+){
+    var showSplash by remember { mutableStateOf(true) }
+
+    // Automatically switch to main screen after 2 seconds
+    LaunchedEffect(Unit) {
+        delay(2000)
+        showSplash = false
+    }
+
+    Crossfade(targetState = showSplash) { isSplash ->
+        if (isSplash) SplashScreen()
+        else SignIn(navController = navController)
+    }
+}
+
+@Composable
+fun SplashScreen() {
+    Box(
+        modifier = Modifier.fillMaxSize().background(Color(0xFF2196F3)),
+        contentAlignment = Alignment.Center
+    ){
+        Text(
+            "MyApp",
+            color = Color.White,
+            fontSize = 40.sp
+        )
+    }
+}
